@@ -7,8 +7,12 @@
  */
 
 import React, { Component } from 'react';
-import { StyleSheet, ActivityIndicator, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, ActivityIndicator, Text, View, Image, Dimensions, Button } from 'react-native';
 import { RkButton, RkSwitch, RkBadge, RkCard, RkText } from 'react-native-ui-kitten';
+import CustomMapView from './CustomMapView'
+
+
+
 
 
 export default class Details extends Component {
@@ -112,9 +116,15 @@ export default class Details extends Component {
                 {imageContainer}
 
                 <View rkCardHeader>
-                <RkText rkType='header'>{item.rocket_name}</RkText>
-                <RkText rkType='header'>{item.company}</RkText>
-                <RkText rkType='header'>{item.rocket_type}</RkText>
+                    <RkText rkType='header'>{item.rocket_name}</RkText>
+                    <RkText rkType='header'>{item.company}</RkText>
+                    <RkText rkType='header'>{item.rocket_type}</RkText>
+                    <Button
+                        onPress={() => {
+                            this.props.navigation.push('CustomMapView')
+                        }}
+                        title="Map"
+                    />
                 </View>
 
                 <View rkCardContent>
@@ -124,30 +134,37 @@ export default class Details extends Component {
                 </View>
 
                 <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 12 }} >Active</RkText>
-                <RkText rkType='header'></RkText>
-                <RkText rkType='header' style={{ fontSize: 12 }} >{item.active.toString()}</RkText>
+                    <RkText rkType='header' style={{ fontSize: 12 }} >Active</RkText>
+                    <RkText rkType='header'></RkText>
+                    <RkText rkType='header' style={{ fontSize: 12 }} >{item.active.toString()}</RkText>
                 </View>
 
                 <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 12 }} >Cost per launch</RkText>
-                <RkText rkType='header'></RkText>
-                <RkText rkType='header' style={{ fontSize: 12 }} >{'$ ' + item.cost_per_launch.toString()}</RkText>
+                    <RkText rkType='header' style={{ fontSize: 12 }} >Cost per launch</RkText>
+                    <RkText rkType='header'></RkText>
+                    <RkText rkType='header' style={{ fontSize: 12 }} >{'$ ' + item.cost_per_launch.toString()}</RkText>
                 </View>
 
                 <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 12 }} >Propellant</RkText>
-                <RkText rkType='header'></RkText>
-                <RkText rkType='header' style={{ fontSize: 12 }} >{item.engines.propellant_1}</RkText>
+                    <RkText rkType='header' style={{ fontSize: 12 }} >Propellant</RkText>
+                    <RkText rkType='header'></RkText>
+                    <RkText rkType='header' style={{ fontSize: 12 }} >{item.engines.propellant_1}</RkText>
                 </View>
 
                 <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 12 }} >Propellant</RkText>
-                <RkText rkType='header'></RkText>
-                <RkText rkType='header' style={{ fontSize: 12 }} >{item.engines.propellant_2}</RkText>
+                    <RkText rkType='header' style={{ fontSize: 12 }} >Propellant</RkText>
+                    <RkText rkType='header'></RkText>
+                    <RkText rkType='header' style={{ fontSize: 12 }} >{item.engines.propellant_2}</RkText>
                 </View>
+
+
 
             </RkCard>
+
+
+
+
+
         );
     }
 }
