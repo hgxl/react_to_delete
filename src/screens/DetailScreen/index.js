@@ -117,20 +117,34 @@ export default class Details extends Component {
                 <RkText rkType='header'>{item.rocket_type}</RkText>
                 </View>
 
-
-
-                <View style={{ flex: 1, flexDirection: 'row' , width: 200}}>
-                    <View style={{ width: 50, height: 50, backgroundColor: 'powderblue' }} />
-                    <View style={{ width: 50, height: 50, backgroundColor: 'skyblue' }} />
-                    <View style={{ alignSelf: 'flex-end', width: 50, height: 50, backgroundColor: 'steelblue' }} />
-                </View>
-
-
-
                 <View rkCardContent>
                     <RkText style={{ textAlign: 'justify' }}>
                         {item.description}
                     </RkText>
+                </View>
+
+                <View rkCardHeader>
+                <RkText rkType='header' style={{ fontSize: 12 }} >Active</RkText>
+                <RkText rkType='header'></RkText>
+                <RkText rkType='header' style={{ fontSize: 12 }} >{item.active.toString()}</RkText>
+                </View>
+
+                <View rkCardHeader>
+                <RkText rkType='header' style={{ fontSize: 12 }} >Cost per launch</RkText>
+                <RkText rkType='header'></RkText>
+                <RkText rkType='header' style={{ fontSize: 12 }} >{'$ ' + item.cost_per_launch.toString()}</RkText>
+                </View>
+
+                <View rkCardHeader>
+                <RkText rkType='header' style={{ fontSize: 12 }} >Propellant</RkText>
+                <RkText rkType='header'></RkText>
+                <RkText rkType='header' style={{ fontSize: 12 }} >{item.engines.propellant_1}</RkText>
+                </View>
+
+                <View rkCardHeader>
+                <RkText rkType='header' style={{ fontSize: 12 }} >Propellant</RkText>
+                <RkText rkType='header'></RkText>
+                <RkText rkType='header' style={{ fontSize: 12 }} >{item.engines.propellant_2}</RkText>
                 </View>
 
             </RkCard>
