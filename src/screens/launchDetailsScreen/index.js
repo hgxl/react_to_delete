@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ActivityIndicator, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, ActivityIndicator, Text, View, Image, Dimensions, TouchableOpacity } from 'react-native';
 import { RkButton, RkSwitch, RkBadge, RkCard, RkText } from 'react-native-ui-kitten';
 
 
@@ -30,9 +30,17 @@ export default class launchDetailsScreen extends Component {
 
     }
 
+_onPressRocket = (item) => {
+
+    this.props.navigation.push('Details', {
+      item: item.rocket,
+      title: item.rocket.rocket_name
+    })
+  };
+
 
     getLaunchInfo(id) {
-        const url = 'https://api.spacexdata.com/v3/launches/' + id
+        const url = 'https://api.spacexdata.com/v3/launches/' + 78
         console.log(url)
 
         return fetch(url)
@@ -65,29 +73,18 @@ export default class launchDetailsScreen extends Component {
 
         const width = this.state.image ? Dimensions.get("window").width : 0
         const item = this.state.dataSource
-        /*
-        console.log("length", item.flickr_images.length)
-        console.log(item.flickr_images[0])
 
-        const imageContainer = item.flickr_images.length > 0 ? (
-            <Image rkCardImg style={{
-                width: width
-            }} source={{ uri: item.flickr_images[0] }} />
-        )
-            :
-            (
-                <View></View>
-            )
-
-        */
         return (
             <RkCard rkType='story' style={styles.cards}>
-            
+                <TouchableOpacity onPress={ () => this._onPressRocket(item)}>
+
                 <View rkCardHeader>
                 <RkText rkType='header'>{item.mission_name}</RkText>
                 <RkText rkType='header'>{item.company}</RkText>
-                <RkText rkType='header'>{item.rocket_name}</RkText>
+                <RkText rkType='header'>{item.rocket.rocket_name}</RkText>
                 </View>
+
+                </TouchableOpacity>
 
                 <View rkCardContent>
                     <RkText style={{ textAlign: 'justify' }}>
@@ -96,7 +93,7 @@ export default class launchDetailsScreen extends Component {
                 </View>
 
                 <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 12 }} >Active</RkText>
+                <RkText rkType='header' style={{ fontSize: 12 }} >Upcoming</RkText>
                 <RkText rkType='header'></RkText>
                 <RkText rkType='header' style={{ fontSize: 12 }} >{item.upcoming.toString()}</RkText>
                 </View>
