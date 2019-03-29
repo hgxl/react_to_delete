@@ -15,6 +15,8 @@ Image, Dimensions
 import { throwStatement } from '@babel/types';
 
 import CustomCard from '../../components/CustomCard/'
+import NextLaunchCard from '../../components/NextLaunchCard'
+
 
 export default class Home extends Component {
   
@@ -29,9 +31,32 @@ export default class Home extends Component {
 
   constructor(props) {
     super(props)
-    this.state ={ isLoading: true}
+    this.state ={ 
+      isLoading: true, 
+      isNextLaunchLoading : true
+    }
 
+    this.getNextLaunches()
     this.getLaunches()
+  }
+
+  getNextLaunches(){
+    return fetch('https://api.spacexdata.com/v3/launches/next')
+      .then((response) => response.json())
+      .then((responseJson) => {
+
+        console.log(responseJson)
+        this.setState({
+          isNextLaunchLoading : false,
+          dataSourceNext: responseJson,
+        }, function(){
+            
+        });
+
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
   }
 
   getLaunches(){
@@ -39,7 +64,6 @@ export default class Home extends Component {
       .then((response) => response.json())
       .then((responseJson) => {
 
-        console.log(responseJson)
         this.setState({
           isLoading: false,
           dataSource: responseJson,
@@ -63,9 +87,17 @@ export default class Home extends Component {
     })
   };
 
+  _onPressLaunch = (item) => {
+
+    this.props.navigation.push('launchDetails', {
+      item: item,
+      title: item.mission_name
+    })
+  };
+
   render() {
 
-    if(this.state.isLoading){
+    if(this.state.isLoading && this.state.isNextLaunchLoading){
       return(
         <View style={{flex: 1, padding: 20}}>
           <ActivityIndicator/>
@@ -74,12 +106,28 @@ export default class Home extends Component {
     }
 
     const image = 'https://cdn2.thecatapi.com/images/124.jpg'
+    const item = this.state.dataSourceNext
 
-     return(
+    console.log(item.mission_name)
+    
+    const date = new Date()
+    const day = date.getDate()
+    const month = date.getMonth()
+    const year = date.getFullYear()
+
+    const dateString = `${day}-0${month}-${year}`
+
+    return(
       <View style={styles.container} >
-      
-   
 
+        <TouchableOpacity  onPress= { () => this._onPressLaunch(item) }>
+            <NextLaunchCard 
+              title={item.mission_name}
+              date={dateString}
+              countdown={item.launch_date_utc}
+              details={item.details}>
+            </NextLaunchCard>  
+          </TouchableOpacity>
 
         <FlatList
           data={this.state.dataSource}
@@ -103,6 +151,7 @@ export default class Home extends Component {
       </View>
     );
   }
+
 }
 
 const styles = StyleSheet.create({

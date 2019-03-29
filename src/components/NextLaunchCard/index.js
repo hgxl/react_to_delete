@@ -1,24 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
-
 import React, {Component} from 'react';
 import {StyleSheet, View, Text, Image,  Dimensions, TouchableOpacity, Linking} from 'react-native';
 import {RkButton, RkCard, RkText} from 'react-native-ui-kitten';
 import PropTypes from 'prop-types'
- 
 
-export default class CustomCard extends React.Component {
-  
+import CountDown from 'react-native-countdown-component';
+
+export default class NextLaunchCard extends Component {
     static propTypes = {
-        url_image: PropTypes.string,
         title: PropTypes.string,
-        desc: PropTypes.string,
-        wikipedia: PropTypes.string,
+        date: PropTypes.string,
+        countdown: PropTypes.string,
+        details: PropTypes.string,
     }
 
     static navigationOptions = ({ navigation }) => ({
@@ -28,11 +20,6 @@ export default class CustomCard extends React.Component {
                 backgroundColor:'white',
             },
         });
-
-        
-    _openUrl = () => {
-        Linking.openURL(this.props.wikipedia).catch(err => console.error('An error occurred', err));
-    }
 
     render() {
 
@@ -47,32 +34,36 @@ export default class CustomCard extends React.Component {
         (
             <View></View>
         )
-
-       
-
-      return (
-        <RkCard rkType='story' style={styles.cards}>
         
-            {imageContainer}
+        const launchDate = new Date(this.props.countdown)
+        const launchDateToSeconds = launchDate.getTime / 1000
+
+        return(
+            <RkCard rkType='story' style={styles.cards}>
+
+                {imageContainer}
   
-          <View rkCardHeader>
-            <RkText rkType='header'>{this.props.title}</RkText>
-          </View>
+            <View rkCardHeader>
+                <RkText rkType='header'>{this.props.title.toString()}</RkText>
+            </View>
 
-          <View rkCardContent>
-            <RkText style={{textAlign:'justify'}}>
-              {this.props.desc}
-            </RkText>
-          </View>
+            <View rkCardFooter>
+                <RkText rkType='header'>{this.props.date.toString()}</RkText>
+            </View>
 
-          <View rkCardFooter>
-            <RkButton rkType='small outline' onPress={this._openUrl} >Wikipedia</RkButton>
-          </View>
+            <View rkCardFooter>
+                <CountDown
+                    until={ 400300 }
+                    timeToShow={['D','H', 'M', 'S']}
+                    timeLabels={{d: 'DD', h: 'HH',m: 'MM', s: 'SS'}}                />
 
-        </RkCard>
-      )
+            </View>
+
+            </RkCard>
+        )
+
     }
-  }
+}
 
 const styles = StyleSheet.create({
     cards: {

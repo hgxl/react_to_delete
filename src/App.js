@@ -12,7 +12,7 @@ import { createAppContainer, createStackNavigator } from 'react-navigation';
 
 import Home from './screens/HomeScreen'
 import Details from './screens/DetailScreen'
-
+import launchDetails from './screens/launchDetailsScreen'
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -28,6 +28,9 @@ const AppNavigator = createStackNavigator({
   },
   Details:{
     screen: Details
+  },
+  launchDetails : {
+    screen : launchDetails
   }
 },
 {
