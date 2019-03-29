@@ -32,55 +32,54 @@ export default class Home extends Component {
   constructor(props) {
     super(props)
     this.state ={ 
-      isLoading: true, 
-      isNextLaunchLoading : true
+      isLoading: true
     }
+    this.setViewState()
+  }
 
-    this.getNextLaunches()
-    this.getLaunches()
+  async setViewState() {
+    try {
+        const launches = await this.getLaunches()
+        const nextLaunch = await this.getNextLaunches()
+        this.setState({
+          isLoading : false,
+          dataSource : launches,
+          dataSourceNext : nextLaunch
+        })
+    } catch (error)  {
+      console.log('Failed to set View State \n\n' +  error)
+    }
   }
 
   getNextLaunches(){
-    return fetch('https://api.spacexdata.com/v3/launches/next')
+    return new Promise( (resolve, reject) => {
+
+      fetch('https://api.spacexdata.com/v3/launches/next')
       .then((response) => response.json())
       .then((responseJson) => {
-
         console.log(responseJson)
-        this.setState({
-          isNextLaunchLoading : false,
-          dataSourceNext: responseJson,
-        }, function(){
-            
-        });
-
+        resolve(responseJson)
       })
       .catch((error) =>{
-        console.error(error);
+        reject(error)
       });
+    }) 
   }
 
   getLaunches(){
-    return fetch('https://api.spacexdata.com/v3/rockets')
+    return new Promise((resolve, reject) => {
+
+      fetch('https://api.spacexdata.com/v3/rockets')
       .then((response) => response.json())
       .then((responseJson) => {
-
-        this.setState({
-          isLoading: false,
-          dataSource: responseJson,
-        }, function(){
-
-        });
-
-      })
-      .catch((error) =>{
-        console.error(error);
+        resolve(responseJson)
+      }).catch((error) =>{
+        reject(error)
       });
+    })     
   }
-  
-
 
   _onPress = (item) => {
-
     this.props.navigation.push('Details', {
       item: item,
       title: item.rocket_name
@@ -97,7 +96,7 @@ export default class Home extends Component {
 
   render() {
 
-    if(this.state.isLoading && this.state.isNextLaunchLoading){
+    if(this.state.isLoading){
       return(
         <View style={{flex: 1, padding: 20}}>
           <ActivityIndicator/>
@@ -122,9 +121,9 @@ export default class Home extends Component {
 
         <TouchableOpacity  onPress= { () => this._onPressLaunch(item) }>
             <NextLaunchCard 
-              title={item.mission_name}
+              title={item.mission_name.toString()}
               date={dateString}
-              countdown={item.launch_date_utc}
+              countdown={item.launch_date_utc.toString()}
               details={item.details}>
             </NextLaunchCard>  
           </TouchableOpacity>

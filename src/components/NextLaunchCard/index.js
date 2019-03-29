@@ -35,29 +35,27 @@ export default class NextLaunchCard extends Component {
             <View></View>
         )
         
-        const launchDate = new Date(this.props.countdown)
-        const launchDateToSeconds = launchDate.getTime / 1000
+        const launchDate = new Date(this.props.countdown.toString())
+        const launchDateToSeconds = launchDate.getTime() / 1000
+        const distance = launchDateToSeconds - (new Date().getTime() / 1000)
 
         return(
             <RkCard rkType='story' style={styles.cards}>
 
-                {imageContainer}
-  
             <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 25 , textAlign:'center',flex: 1, flexDirection: 'row', justifyContent: 'center' }} >Next Launch: {this.props.title.toString()}</RkText>
+                <RkText rkType='header' style={{ fontSize: 25 , textAlign:'center',flex: 1, flexDirection: 'row', justifyContent: 'center'}} > {this.props.title.toString()} </RkText>
             </View>
 
             <View rkCardContent>
                 <RkText rkType='header' style={{ fontSize: 16, textAlign:'center' }} >Remaining Time</RkText>
-
             </View>
 
             <View rkCardFooter>
-                <CountDown style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}
-                    size={ 20 }
-                    until={ 400300 }
+                <CountDown style={{flex: 1, flexDirection: 'row', justifyContent: 'center', fontSize: 8 }}
+                    size={ 30 }
+                    until={ distance }
                     timeToShow={['D','H', 'M', 'S']}
-                    timeLabels={{d: 'DD', h: 'HH',m: 'MM', s: 'SS'}}                />
+                    timeLabels={{d: 'Days', h: 'Hours',m: 'Minutes', s: 'Seconds'}}                />
 
             </View>
 
