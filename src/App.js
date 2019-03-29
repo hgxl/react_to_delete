@@ -28,7 +28,11 @@ const AppNavigator = createStackNavigator({
   },
   Details:{
     screen: Details
+  },
+  CustomMapView:{
+    screen: CustomMapView
   }
+
 },
 {
   initialRouteName: "Home"
