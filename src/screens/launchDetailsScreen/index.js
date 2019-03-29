@@ -93,21 +93,21 @@ _onPressRocket = (item) => {
                 </View>
 
                 <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 12 }} >Upcoming</RkText>
+                <RkText rkType='header' style={{ fontSize: 12 , textAlign:'center'}} >Upcoming</RkText>
                 <RkText rkType='header'></RkText>
-                <RkText rkType='header' style={{ fontSize: 12 }} >{item.upcoming.toString()}</RkText>
+                <RkText rkType='header' style={{ fontSize: 12 , textAlign:'center'}} >{item.upcoming.toString()}</RkText>
                 </View>
 
                 <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 12 }} >Launch Year</RkText>
+                <RkText rkType='header' style={{ fontSize: 12, textAlign:'center' }} >Launch Year</RkText>
                 <RkText rkType='header'></RkText>
-                <RkText rkType='header' style={{ fontSize: 12 }} >{item.launch_year.toString()}</RkText>
+                <RkText rkType='header' style={{ fontSize: 12 , textAlign:'center'}} >{item.launch_year.toString()}</RkText>
                 </View>
 
                 <View rkCardHeader>
-                <RkText rkType='header' style={{ fontSize: 12 }} >Details</RkText>
+                <RkText rkType='header' style={{ fontSize: 12 , textAlign:'center'}} >Details</RkText>
                 <RkText rkType='header'></RkText>
-                <RkText rkType='header' style={{ fontSize: 12 }} >{item.details}</RkText>
+                <RkText rkType='header' style={{ fontSize: 12 , textAlign:'center'}} >{item.details}</RkText>
                 </View>
 
             </RkCard>

@@ -21,13 +21,7 @@ export default class CustomCard extends React.Component {
         wikipedia: PropTypes.string,
     }
 
-    static navigationOptions = ({ navigation }) => ({
-        title: `${navigation.state.params.title}`,
-         headerTitleStyle : {textAlign: 'center',alignSelf:'center'},
-            headerStyle:{
-                backgroundColor:'white',
-            },
-        });
+
 
         
     _openUrl = () => {

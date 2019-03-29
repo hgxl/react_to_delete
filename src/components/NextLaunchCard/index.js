@@ -44,15 +44,17 @@ export default class NextLaunchCard extends Component {
                 {imageContainer}
   
             <View rkCardHeader>
-                <RkText rkType='header'>{this.props.title.toString()}</RkText>
+                <RkText rkType='header' style={{ fontSize: 25 , textAlign:'center',flex: 1, flexDirection: 'row', justifyContent: 'center' }} >Next Launch: {this.props.title.toString()}</RkText>
+            </View>
+
+            <View rkCardContent>
+                <RkText rkType='header' style={{ fontSize: 16, textAlign:'center' }} >Remaining Time</RkText>
+
             </View>
 
             <View rkCardFooter>
-                <RkText rkType='header'>{this.props.date.toString()}</RkText>
-            </View>
-
-            <View rkCardFooter>
-                <CountDown
+                <CountDown style={{flex: 1, flexDirection: 'row', justifyContent: 'center'}}
+                    size={ 20 }
                     until={ 400300 }
                     timeToShow={['D','H', 'M', 'S']}
                     timeLabels={{d: 'DD', h: 'HH',m: 'MM', s: 'SS'}}                />
